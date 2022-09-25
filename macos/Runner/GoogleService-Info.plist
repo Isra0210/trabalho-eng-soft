@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>822131415984-pbb1sl7fuhaipfid1qo9av0d1iuah28k.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.822131415984-pbb1sl7fuhaipfid1qo9av0d1iuah28k</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>822131415984-ga2819r3sikk8e86ps2pldkhes8njkma.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDx1Mez7bBS5mvP-LeGypI65qfHAHlNTiA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>822131415984</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.hackday</string>
+	<key>PROJECT_ID</key>
+	<string>hackday-9566f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>hackday-9566f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:822131415984:ios:9d1f33cbb8674cebad5475</string>
+</dict>
+</plist>

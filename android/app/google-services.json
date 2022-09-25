@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "822131415984",
+    "project_id": "hackday-9566f",
+    "storage_bucket": "hackday-9566f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822131415984:android:eeafd1c75c74f6c3ad5475",
+        "android_client_info": {
+          "package_name": "com.example.hackday"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "822131415984-ga2819r3sikk8e86ps2pldkhes8njkma.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hackday",
+            "certificate_hash": "29053a09d6ea9a5f265c38edf4eeee3baede8ee0"
+          }
+        },
+        {
+          "client_id": "822131415984-4oted04cgqg2gteac9nosd52qog0m3b3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbZZo-F3Obl3_Ucehn5fKWCyN158vaZiQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "822131415984-4oted04cgqg2gteac9nosd52qog0m3b3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
