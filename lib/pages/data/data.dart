@@ -6,7 +6,7 @@ class Data {
           "img":
               "https://supsaojoao.com.br/272-large_default/refrigerante-coca-cola-lata-350ml.jpg",
           "name": "Coca-cola lata",
-          "price": "7.00",
+          "price": "6.00",
           "count": 1.obs,
         },
         {
@@ -19,7 +19,7 @@ class Data {
         {
           "img": "https://www.paodeacucar.com/img/uploads/1/974/19514974.jpg",
           "name": "Chocolate lacta",
-          "price": "9.00",
+          "price": "8.00",
           "count": 1.obs,
         },
         {

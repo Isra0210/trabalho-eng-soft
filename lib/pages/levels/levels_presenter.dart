@@ -4,14 +4,13 @@ import 'package:hackday/view_model/product_view_model.dart';
 abstract class ILevelsPresenter {
   List<ProductViewModel> get products;
   List<BankNotesViewModel> get banknotes;
-  
-  List<ProductViewModel> get productsSelected;
-  set productsSelected(List<ProductViewModel> value);  
-  
-  List<BankNotesViewModel> get bacnknotesSelected;
-  set bacnknotesSelected(List<BankNotesViewModel> value);  
-  
-  List<BankNotesViewModel> get cashChange;
-  set cashChange(List<BankNotesViewModel> value);  
-}
 
+  List<ProductViewModel> get productsSelected;
+  set productsSelected(List<ProductViewModel> value);
+
+  List<BankNotesViewModel> get bacnknotesSelected;
+  set bacnknotesSelected(List<BankNotesViewModel> value);
+
+  List<BankNotesViewModel> get cashChange;
+  set cashChange(List<BankNotesViewModel> value);
+}

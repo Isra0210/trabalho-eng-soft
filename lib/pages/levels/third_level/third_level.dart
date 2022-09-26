@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hackday/pages/finish/successfully_page.dart';
 import 'package:hackday/pages/levels/components/product_component.dart';
 
 import '../../components/background_image_component.dart';
@@ -174,8 +175,7 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
                         ...presenter.banknotes.map(
                           (note) => GestureDetector(
                             onTap: () {
-                              final index =
-                                  presenter.cashChange.indexOf(note);
+                              final index = presenter.cashChange.indexOf(note);
                               if (presenter.cashChange.contains(note)) {
                                 presenter.cashChange[index].count = 1.obs;
                                 presenter.cashChange.remove(note);
@@ -183,133 +183,129 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
                                 presenter.cashChange.add(note);
                               }
                             },
-                            child: Obx(
-                               () {
-                                return Padding(
-                                  padding: EdgeInsets.only(
-                                    bottom:
-                                        !presenter.cashChange.contains(note)
-                                            ? 35.0
-                                            : 0,
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        margin: const EdgeInsets.symmetric(
-                                          horizontal: 12,
-                                        ),
-                                        height: 160,
-                                        width: 300,
-                                        padding: const EdgeInsets.all(8.0),
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: NetworkImage(note.img),
-                                            fit: BoxFit.fill,
-                                          ),
+                            child: Obx(() {
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                  bottom: !presenter.cashChange.contains(note)
+                                      ? 35.0
+                                      : 0,
+                                ),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(
+                                        horizontal: 12,
+                                      ),
+                                      height: 160,
+                                      width: 300,
+                                      padding: const EdgeInsets.all(8.0),
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: NetworkImage(note.img),
+                                          fit: BoxFit.fill,
                                         ),
                                       ),
-                                      Obx(() {
-                                        final index = presenter.cashChange
-                                            .indexOf(note);
-                                        return presenter.cashChange
-                                                .contains(note)
-                                            ? Visibility(
-                                                visible: presenter
-                                                        .cashChange[index]
-                                                        .count
-                                                        .value >
-                                                    0,
-                                                child: Container(
-                                                  alignment: Alignment.topCenter,
-                                                  width: 300,
-                                                  color: Colors.white,
-                                                  padding: const EdgeInsets.symmetric(
-                                                    horizontal: 4.0,
-                                                    vertical: 6,
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Obx(() {
+                                    ),
+                                    Obx(() {
+                                      final index =
+                                          presenter.cashChange.indexOf(note);
+                                      return presenter.cashChange.contains(note)
+                                          ? Visibility(
+                                              visible: presenter
+                                                      .cashChange[index]
+                                                      .count
+                                                      .value >
+                                                  0,
+                                              child: Container(
+                                                alignment: Alignment.topCenter,
+                                                width: 300,
+                                                color: Colors.white,
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  horizontal: 4.0,
+                                                  vertical: 6,
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Obx(() {
+                                                      presenter
+                                                          .cashChange[index]
+                                                          .count;
+                                                      return Container(
+                                                        decoration:
+                                                            const BoxDecoration(
+                                                          color: Colors.red,
+                                                          shape:
+                                                              BoxShape.circle,
+                                                        ),
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              presenter
+                                                                  .cashChange[
+                                                                      index]
+                                                                  .count--;
+                                                            });
+                                                          },
+                                                          child: const Icon(
+                                                            Icons.remove,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }),
+                                                    Obx(() {
+                                                      return Text(
+                                                        presenter
+                                                            .cashChange[index]
+                                                            .count
+                                                            .toString(),
+                                                        style: const TextStyle(
+                                                          fontSize: 18,
+                                                          backgroundColor:
+                                                              Colors.white,
+                                                        ),
+                                                      );
+                                                    }),
+                                                    Container(
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                        color: Colors.green,
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: Obx(() {
                                                         presenter
                                                             .cashChange[index]
                                                             .count;
-                                                        return Container(
-                                                          decoration:
-                                                              const BoxDecoration(
-                                                            color: Colors.red,
-                                                            shape: BoxShape.circle,
-                                                          ),
-                                                          child: GestureDetector(
-                                                            onTap: () {
-                                                              setState(() {
-                                                                presenter
-                                                                    .cashChange[
-                                                                        index]
-                                                                    .count--;
-                                                              });
-                                                            },
-                                                            child: const Icon(
-                                                              Icons.remove,
-                                                              color: Colors.white,
-                                                            ),
+                                                        return GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              presenter
+                                                                  .cashChange[
+                                                                      index]
+                                                                  .count++;
+                                                            });
+                                                          },
+                                                          child: const Icon(
+                                                            Icons.add,
+                                                            color: Colors.white,
                                                           ),
                                                         );
                                                       }),
-                                                      Obx(() {
-                                                        return Text(
-                                                          presenter
-                                                              .cashChange[
-                                                                  index]
-                                                              .count
-                                                              .toString(),
-                                                          style: const TextStyle(
-                                                            fontSize: 18,
-                                                            backgroundColor:
-                                                                Colors.white,
-                                                          ),
-                                                        );
-                                                      }),
-                                                      Container(
-                                                        decoration:
-                                                            const BoxDecoration(
-                                                          color: Colors.green,
-                                                          shape: BoxShape.circle,
-                                                        ),
-                                                        child: Obx(() {
-                                                          presenter
-                                                              .cashChange[
-                                                                  index]
-                                                              .count;
-                                                          return GestureDetector(
-                                                            onTap: () {
-                                                              setState(() {
-                                                                presenter
-                                                                    .cashChange[
-                                                                        index]
-                                                                    .count++;
-                                                              });
-                                                            },
-                                                            child: const Icon(
-                                                              Icons.add,
-                                                              color: Colors.white,
-                                                            ),
-                                                          );
-                                                        }),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              )
-                                            : const SizedBox();
-                                      })
-                                    ],
-                                  ),
-                                );
-                              }
-                            ),
+                                              ),
+                                            )
+                                          : const SizedBox();
+                                    })
+                                  ],
+                                ),
+                              );
+                            }),
                           ),
                         )
                       ],
@@ -322,10 +318,39 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
         ],
       ),
       bottomNavigationBar: Obx(() {
+        double total = 0;
+        //ignore: avoid_function_literals_in_foreach_calls
+        presenter.productsSelected.forEach((product) {
+          total = total + (double.parse(product.price) * product.count.value);
+        });
+
+        double totalSelected = 0;
+        //ignore: avoid_function_literals_in_foreach_calls
+        presenter.bacnknotesSelected.forEach(
+          (product) {
+            totalSelected = totalSelected +
+                (double.parse(product.value) * product.count.value);
+          },
+        );
+
+        double cashChange = 0;
+        //ignore: avoid_function_literals_in_foreach_calls
+        presenter.cashChange.forEach(
+          (product) {
+            cashChange = cashChange +
+                (double.parse(product.value) * product.count.value);
+          },
+        );
+
+        final bool isSuccessfully =
+            total == totalSelected || total == (totalSelected - cashChange);
+
         return Visibility(
           visible: presenter.cashChange.isNotEmpty,
           child: GestureDetector(
-            onTap: () => Get.toNamed(UnsuccessfullyPage.route),
+            onTap: () => isSuccessfully
+                ? Get.toNamed(SuccessfullyPage.route)
+                : Get.toNamed(UnsuccessfullyPage.route),
             child: Container(
               width: double.infinity,
               alignment: Alignment.center,
