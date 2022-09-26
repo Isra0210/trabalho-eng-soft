@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hackday/pages/levels/second_level/second_level_page.dart';
 import 'package:hackday/pages/login/login_page.dart';
 import 'package:hackday/presenters/login/login_binding.dart';
 
@@ -55,6 +56,11 @@ class MyApp extends StatelessWidget {
           binding: LevelsBinding(),
           name: FirstLevelPage.route,
           page: () => const FirstLevelPage(),
+        ),
+        GetPage(
+          binding: LevelsBinding(),
+          name: SecondLevelPage.route,
+          page: () => const SecondLevelPage(),
         ),
       ],
     );

@@ -44,4 +44,49 @@ class Data {
           "count": 1.obs,
         }
       ];
+
+  static get banknotes => [
+        {
+          "img":
+              "https://www.bcb.gov.br/novasnotas/assets/img/section/2/2_front.jpg",
+          "value": "2",
+          "count": 1.obs,
+        },
+        {
+          "img":
+              "https://cdn.awsli.com.br/600x700/358/358873/produto/62870843/17fee94ed6.jpg",
+          "value": "5",
+          "count": 1.obs,
+        },
+        {
+          "img":
+              "https://upload.wikimedia.org/wikipedia/commons/9/9a/10_Brazil_real_Second_Obverse.jpg",
+          "value": "10",
+          "count": 1.obs,
+        },
+        {
+          "img":
+              "https://cdn2.solojavirtual.com/loja/arquivos_loja/53951/Fotos/thumbs3/produto_Foto1_11237590.jpg?cache=20220609111133",
+          "value": "20",
+          "count": 1.obs,
+        },
+        {
+          "img":
+              "https://cdn2.solojavirtual.com/loja/arquivos_loja/53951/Fotos/thumbs3/produto_Foto1_11223314.jpg?cache=",
+          "value": "50",
+          "count": 1.obs,
+        },
+        {
+          "img":
+              "https://images.tcdn.com.br/img/img_prod/1067559/100_reais_lh_guedes_e_campos_fe_709_1_d9369dd0ea9b579ca6221a8aacbcd64c.jpg",
+          "value": "100",
+          "count": 1.obs,
+        },
+        {
+          "img":
+              "https://upload.wikimedia.org/wikipedia/commons/6/64/200_Brazil_real_Second_Obverse.jpg",
+          "value": "200",
+          "count": 1.obs,
+        },
+      ];
 }

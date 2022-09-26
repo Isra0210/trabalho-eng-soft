@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hackday/pages/components/background_image_component.dart';
 import 'package:hackday/pages/levels/components/product_component.dart';
 import 'package:hackday/pages/levels/levels_presenter.dart';
+import 'package:hackday/pages/levels/second_level/second_level_page.dart';
 
 class FirstLevelPage extends StatefulWidget {
   const FirstLevelPage({Key? key}) : super(key: key);
@@ -19,29 +20,43 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
     final ILevelsPresenter presenter = Get.find<ILevelsPresenter>();
 
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: Text(
-          'Fase 1',
+          'Selecione seus produtos',
           style: TextStyle(
             color: Colors.blueGrey.shade900,
             fontWeight: FontWeight.bold,
-            fontSize: 30,
-            backgroundColor: Colors.white60,
+            fontSize: 26,
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white24,
+        backgroundColor: const Color.fromRGBO(57, 210, 192, 1),
         elevation: 0,
         bottom: PreferredSize(
           preferredSize: const Size(double.infinity, 40),
-          child: Text(
-            'Selecione seus produtos',
-            style: TextStyle(
-              color: Colors.blueGrey.shade900,
-              fontWeight: FontWeight.bold,
-              fontSize: 26,
-              backgroundColor: Colors.white60,
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            color: Colors.blueGrey.shade900,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Valor total: ",
+                  style: TextStyle(fontSize: 18, color: Colors.white),
+                ),
+                Obx(() {
+                  double total = 0;
+                  //ignore: avoid_function_literals_in_foreach_calls
+                  presenter.productsSelected.forEach((product) {
+                    total = total +
+                        (double.parse(product.price) * product.count.value);
+                  });
+                  return Text(
+                    "R\$ $total",
+                    style: const TextStyle(fontSize: 18, color: Colors.white),
+                  );
+                })
+              ],
             ),
           ),
         ),
@@ -50,55 +65,52 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
       body: Stack(
         children: [
           const BackgroundImageComponent(),
-          Container(
-            margin: const EdgeInsets.only(top: 16),
-            child: GridView.count(
-              crossAxisCount: 2,
-              children: [
-                ...presenter.products.map(
-                  (product) => GestureDetector(
-                    onTap: () {
-                      final index = presenter.productsSelected.indexOf(product);
-                      if (presenter.productsSelected.contains(product)) {
-                        presenter.productsSelected[index].count = 1.obs;
-                        presenter.productsSelected.remove(product);
-                      } else {
-                        presenter.productsSelected.add(product);
-                      }
-                    },
-                    child: ProductComponent(product: product),
+          GridView.count(
+            crossAxisCount: 2,
+            childAspectRatio: 0.9,
+            children: [
+              ...presenter.products.map(
+                (product) => GestureDetector(
+                  onTap: () {
+                    final index = presenter.productsSelected.indexOf(product);
+                    if (presenter.productsSelected.contains(product)) {
+                      presenter.productsSelected[index].count = 1.obs;
+                      presenter.productsSelected.remove(product);
+                    } else {
+                      presenter.productsSelected.add(product);
+                    }
+                  },
+                  child: SizedBox(
+                    height: 200,
+                    child: ProductComponent(
+                      product: product,
+                      canEditCount: true,
+                    ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.all(12),
-        color: Colors.white,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              "Valor total: ",
-              style: TextStyle(fontSize: 18),
+      bottomNavigationBar: Obx(() {
+        return Visibility(
+          visible: presenter.productsSelected.isNotEmpty,
+          child: GestureDetector(
+            onTap: () => Get.toNamed(SecondLevelPage.route),
+            child: Container(
+              width: double.infinity,
+              alignment: Alignment.center,
+              color: const Color.fromRGBO(57, 210, 192, 1),
+              height: 40,
+              child: const Text(
+                'Próximo nível',
+                style: TextStyle(fontSize: 18),
+              ),
             ),
-            Obx(() {
-              double total = 0;
-              //ignore: avoid_function_literals_in_foreach_calls
-              presenter.productsSelected.forEach((product) {
-                total =
-                    total + (double.parse(product.price) * product.count.value);
-              });
-              return Text(
-                "R\$ $total",
-                style: const TextStyle(fontSize: 18),
-              );
-            })
-          ],
-        ),
-      ),
+          ),
+        );
+      }),
     );
   }
 }

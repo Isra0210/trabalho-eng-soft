@@ -7,10 +7,12 @@ import '../levels_presenter.dart';
 class ProductComponent extends StatefulWidget {
   const ProductComponent({
     required this.product,
+    required this.canEditCount,
     Key? key,
   }) : super(key: key);
 
   final ProductViewModel product;
+  final bool canEditCount;
 
   @override
   State<ProductComponent> createState() => _ProductComponentState();
@@ -46,9 +48,12 @@ class _ProductComponentState extends State<ProductComponent> {
                   ),
                 ),
               ),
-              Text(
-                widget.product.name,
-                style: const TextStyle(fontSize: 22),
+              Padding(
+                padding: EdgeInsets.only(top: widget.canEditCount ? 18.0 : 0),
+                child: Text(
+                  widget.product.name,
+                  style: const TextStyle(fontSize: 22),
+                ),
               ),
               Text(
                 'R\$ ${widget.product.price}',
@@ -56,77 +61,89 @@ class _ProductComponentState extends State<ProductComponent> {
               ),
             ],
           ),
-          Obx(() {
-            final productIndex =
-                presenter.productsSelected.indexOf(widget.product);
-            return presenter.productsSelected.contains(widget.product)
-                ? Visibility(
-                  visible: presenter.productsSelected[productIndex].count.value > 0,
-                  child: Padding(
-                      padding: const EdgeInsets.only(top: 86),
-                      child: Container(
-                        color: Colors.white,
-                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Obx(() {
-                              presenter.productsSelected[productIndex].count;
-                              return Container(
-                                decoration: const BoxDecoration(
-                                    color: Colors.red, shape: BoxShape.circle),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
+          widget.canEditCount
+              ? Obx(() {
+                  final productIndex =
+                      presenter.productsSelected.indexOf(widget.product);
+                  return presenter.productsSelected.contains(widget.product)
+                      ? Visibility(
+                          visible: presenter
+                                  .productsSelected[productIndex].count.value >
+                              0,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 86),
+                            child: Container(
+                              color: Colors.white,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 4.0, vertical: 6),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Obx(() {
+                                    presenter
+                                        .productsSelected[productIndex].count;
+                                    return Container(
+                                      decoration: const BoxDecoration(
+                                          color: Colors.red,
+                                          shape: BoxShape.circle),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            presenter
+                                                .productsSelected[productIndex]
+                                                .count--;
+                                          });
+                                        },
+                                        child: const Icon(
+                                          Icons.remove,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                                  Obx(() {
+                                    return Text(
                                       presenter
-                                        .productsSelected[productIndex].count--;
-                                    });
-                                  },
-                                  child: const Icon(
-                                    Icons.remove,
-                                    color: Colors.white,
+                                          .productsSelected[productIndex].count
+                                          .toString(),
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        backgroundColor: Colors.white,
+                                      ),
+                                    );
+                                  }),
+                                  Container(
+                                    decoration: const BoxDecoration(
+                                      color: Colors.green,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Obx(() {
+                                      presenter
+                                          .productsSelected[productIndex].count;
+                                      return GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            presenter
+                                                .productsSelected[productIndex]
+                                                .count++;
+                                          });
+                                        },
+                                        child: const Icon(
+                                          Icons.add,
+                                          color: Colors.white,
+                                        ),
+                                      );
+                                    }),
                                   ),
-                                ),
-                              );
-                            }),
-                            Obx(() {
-                              return Text(
-                                presenter.productsSelected[productIndex].count
-                                    .toString(),
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  backgroundColor: Colors.white,
-                                ),
-                              );
-                            }),
-                            Container(
-                              decoration: const BoxDecoration(
-                                color: Colors.green,
-                                shape: BoxShape.circle,
+                                ],
                               ),
-                              child: Obx(() {
-                                presenter.productsSelected[productIndex].count;
-                                return GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      presenter
-                                          .productsSelected[productIndex].count++;
-                                    });
-                                  },
-                                  child: const Icon(
-                                    Icons.add,
-                                    color: Colors.white,
-                                  ),
-                                );
-                              }),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                )
-                : const SizedBox();
-          }),
+                          ),
+                        )
+                      : const SizedBox();
+                })
+              : const SizedBox(),
         ],
       ),
     );
