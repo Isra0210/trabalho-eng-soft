@@ -37,4 +37,12 @@ class GetXLevelsPresenter extends GetxController implements ILevelsPresenter {
   @override
   set bacnknotesSelected(List<BankNotesViewModel> value) =>
       _bacnknotesSelected.value = value;
+
+  final RxList<BankNotesViewModel> _cashChange =
+      RxList<BankNotesViewModel>([]);
+  @override
+  List<BankNotesViewModel> get cashChange => _cashChange;
+  @override
+  set cashChange(List<BankNotesViewModel> value) =>
+      _cashChange.value = value;
 }

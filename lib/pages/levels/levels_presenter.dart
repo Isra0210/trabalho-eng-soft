@@ -10,5 +10,8 @@ abstract class ILevelsPresenter {
   
   List<BankNotesViewModel> get bacnknotesSelected;
   set bacnknotesSelected(List<BankNotesViewModel> value);  
+  
+  List<BankNotesViewModel> get cashChange;
+  set cashChange(List<BankNotesViewModel> value);  
 }
 

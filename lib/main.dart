@@ -2,11 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hackday/pages/finish/successfully_page.dart';
+import 'package:hackday/pages/finish/unsuccessful_page.dart';
 import 'package:hackday/pages/levels/second_level/second_level_page.dart';
 import 'package:hackday/pages/login/login_page.dart';
 import 'package:hackday/presenters/login/login_binding.dart';
 
 import 'pages/levels/first_level/first_level_page.dart';
+import 'pages/levels/third_level/third_level.dart';
 import 'presenters/levels/levels_binding.dart';
 
 void main() async {
@@ -61,6 +64,21 @@ class MyApp extends StatelessWidget {
           binding: LevelsBinding(),
           name: SecondLevelPage.route,
           page: () => const SecondLevelPage(),
+        ),
+        GetPage(
+          binding: LevelsBinding(),
+          name: ThirdLevelPage.route,
+          page: () => const ThirdLevelPage(),
+        ),
+        GetPage(
+          binding: LevelsBinding(),
+          name: SuccessfullyPage.route,
+          page: () => const SuccessfullyPage(),
+        ),
+        GetPage(
+          binding: LevelsBinding(),
+          name: UnsuccessfullyPage.route,
+          page: () => const UnsuccessfullyPage(),
         ),
       ],
     );

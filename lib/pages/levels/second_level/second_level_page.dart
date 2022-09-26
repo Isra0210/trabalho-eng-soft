@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hackday/pages/levels/components/product_component.dart';
+import 'package:hackday/pages/levels/third_level/third_level.dart';
 
 import '../../components/background_image_component.dart';
 import '../levels_presenter.dart';
@@ -291,7 +292,7 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
         return Visibility(
           visible: presenter.bacnknotesSelected.isNotEmpty,
           child: GestureDetector(
-            onTap: () => Get.toNamed(SecondLevelPage.route),
+            onTap: () => Get.toNamed(ThirdLevelPage.route),
             child: Container(
               width: double.infinity,
               alignment: Alignment.center,

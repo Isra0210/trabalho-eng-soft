@@ -41,11 +41,7 @@ dependencies:
   google_sign_in: ^5.4.1
   firebase_messaging: ^13.0.0
   firebase_core: ^1.21.1
-  location: ^4.4.0
-  geolocator: ^9.0.1
   permission_handler: ^10.0.0
-  geocoding: ^2.0.5
-  geocode: ^1.0.2
   equatable: ^2.0.5
 
 

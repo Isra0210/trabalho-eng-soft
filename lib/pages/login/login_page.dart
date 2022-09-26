@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               onPressed: () async {
                                 if (FirebaseAuth.instance.currentUser != null) {
-                                  () => Get.offNamed('/home');
+                                  () => Get.offNamed('/first-level');
                                 } else {
                                   await presenter.signInWithGoogle();
                                 }
