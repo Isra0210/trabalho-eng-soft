@@ -41,7 +41,7 @@ class _ProductComponentState extends State<ProductComponent> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   image: DecorationImage(
-                    image: NetworkImage(
+                    image: AssetImage(
                       widget.product.img,
                     ),
                     fit: BoxFit.fill,

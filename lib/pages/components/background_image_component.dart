@@ -9,9 +9,7 @@ class BackgroundImageComponent extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: NetworkImage(
-            'https://img.elo7.com.br/product/zoom/28EAA87/papel-de-parede-adesivo-cinema-papel-de-parede-filme.jpg',
-          ),
+          image: AssetImage('lib/assets/background.jpg'),
           fit: BoxFit.cover,
         ),
       ),

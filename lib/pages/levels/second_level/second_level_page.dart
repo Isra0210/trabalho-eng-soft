@@ -171,7 +171,7 @@ class _SecondLevelPageState extends State<SecondLevelPage> {
                                       padding: const EdgeInsets.all(8.0),
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
-                                          image: NetworkImage(note.img),
+                                          image: AssetImage(note.img),
                                           fit: BoxFit.fill,
                                         ),
                                       ),
