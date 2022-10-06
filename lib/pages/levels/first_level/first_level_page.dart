@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hackday/pages/components/background_image_component.dart';
 import 'package:hackday/pages/levels/components/product_component.dart';
 import 'package:hackday/pages/levels/levels_presenter.dart';
 import 'package:hackday/pages/levels/second_level/second_level_page.dart';
+import 'package:hackday/presenters/levels/getx_levels_presenter.dart';
 
 class FirstLevelPage extends StatefulWidget {
   const FirstLevelPage({Key? key}) : super(key: key);
@@ -17,18 +17,25 @@ class FirstLevelPage extends StatefulWidget {
 class _FirstLevelPageState extends State<FirstLevelPage> {
   @override
   Widget build(BuildContext context) {
-    final ILevelsPresenter presenter = Get.find<ILevelsPresenter>();
+    final ILevelsPresenter presenter =
+        Get.put<ILevelsPresenter>(GetXLevelsPresenter());
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Selecione seus produtos',
+          'Produtos',
           style: TextStyle(
             color: Colors.blueGrey.shade900,
             fontWeight: FontWeight.bold,
             fontSize: 26,
           ),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout, color: Colors.blueGrey.shade900),
+            onPressed: () {},
+          ),
+        ],
         centerTitle: true,
         backgroundColor: const Color.fromRGBO(57, 210, 192, 1),
         elevation: 0,
@@ -62,34 +69,34 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
         ),
       ),
       backgroundColor: Colors.white,
-      body: Stack(
+      body: GridView.count(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        crossAxisCount: 2,
+        childAspectRatio: 0.9,
         children: [
-          const BackgroundImageComponent(),
-          GridView.count(
-            crossAxisCount: 2,
-            childAspectRatio: 0.9,
-            children: [
-              ...presenter.products.map(
-                (product) => GestureDetector(
-                  onTap: () {
-                    final index = presenter.productsSelected.indexOf(product);
-                    if (presenter.productsSelected.contains(product)) {
-                      presenter.productsSelected[index].count = 1.obs;
-                      presenter.productsSelected.remove(product);
-                    } else {
-                      presenter.productsSelected.add(product);
-                    }
-                  },
-                  child: SizedBox(
-                    height: 200,
-                    child: ProductComponent(
-                      product: product,
-                      canEditCount: true,
-                    ),
+          ...presenter.products.map(
+            (product) => GestureDetector(
+              onTap: () {
+                final index = presenter.productsSelected.indexOf(product);
+                if (presenter.productsSelected.contains(product)) {
+                  presenter.productsSelected[index].count = 1.obs;
+                  presenter.productsSelected.remove(product);
+                } else {
+                  presenter.productsSelected.add(product);
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  height: 230,
+                  child: ProductComponent(
+                    product: product,
+                    canEditCount: true,
+                    presenter: presenter,
                   ),
                 ),
               ),
-            ],
+            ),
           ),
         ],
       ),

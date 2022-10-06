@@ -21,13 +21,7 @@ class UnsuccessfullyPage extends StatelessWidget {
             fontSize: 26,
           ),
         ),
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: Icon(
-            Icons.arrow_back_ios_new,
-            color: Colors.blueGrey.shade900,
-          ),
-        ),
+        leading: IconButton(icon: Icon(Icons.logout, color: Colors.blueGrey.shade900), onPressed: (){}),
         centerTitle: true,
         backgroundColor: Colors.red.shade700,
         elevation: 0,
@@ -44,7 +38,6 @@ class UnsuccessfullyPage extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: GestureDetector(
-        //TODO fazer integração
         onTap: () => Get.offAllNamed(FirstLevelPage.route),
         child: Container(
           width: double.infinity,

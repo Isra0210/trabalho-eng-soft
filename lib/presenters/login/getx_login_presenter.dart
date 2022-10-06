@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:get/get.dart';
+import 'package:hackday/pages/levels/first_level/first_level_page.dart';
 import 'package:hackday/pages/login/login_presenter.dart';
 
 class GetXLoginPresenter extends GetxController implements ILoginPresenter {
@@ -17,6 +18,19 @@ class GetXLoginPresenter extends GetxController implements ILoginPresenter {
   UserCredential? get user => _user.value;
   @override
   set user(UserCredential? value) => _user.value = value;
+
+  @override
+  Future<Map<String, dynamic>?> verifyUserProfile() async {
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+    final userDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(
+          userId,
+        )
+        .get();
+
+    return userDoc.data();
+  }
 
   Future<void> saveTokenToDatabase() async {
     String userId = FirebaseAuth.instance.currentUser!.uid;
@@ -37,6 +51,7 @@ class GetXLoginPresenter extends GetxController implements ILoginPresenter {
         'name': googleSign?.displayName,
         'uid': FirebaseAuth.instance.currentUser!.uid,
         'lastUpdate': FieldValue.serverTimestamp(),
+        'isAdmin': false,
       },
       SetOptions(merge: true),
     );
@@ -44,28 +59,6 @@ class GetXLoginPresenter extends GetxController implements ILoginPresenter {
 
   @override
   Future<UserCredential?> signInWithGoogle() async {
-    // try {
-    //   _loading.value = true;
-    //   final GoogleSignInAccount? googleSignInAccount =
-    //       await GoogleSignIn().signIn();
-
-    //   final GoogleSignInAuthentication googleAuth =
-    //       await googleSignInAccount!.authentication;
-
-    //   final credential = GoogleAuthProvider.credential(
-    //     accessToken: googleAuth.accessToken,
-    //     idToken: googleAuth.idToken,
-    //   );
-    //   await updateSocialUser(googleSignInAccount);
-    //   await saveTokenToDatabase();
-    //   return await FirebaseAuth.instance.signInWithCredential(credential);
-    // } on FirebaseAuthException catch (e) {
-    //   print('ERRO FIREBASE ${e.message}');
-    // } catch (e) {
-    //   print('ERRO $e');
-    // } finally {
-    //   _loading.value = false;
-    // }
     FirebaseAuth auth = FirebaseAuth.instance;
     UserCredential? user;
 
@@ -89,8 +82,10 @@ class GetXLoginPresenter extends GetxController implements ILoginPresenter {
             await auth.signInWithCredential(credential);
 
         user = userCredential;
+        await updateSocialUser(googleSignInAccount);
+        () => Get.offAllNamed(FirstLevelPage.route);
       } on FirebaseAuthException catch (e) {
-          e.message;
+        e.message;
         if (e.code == 'account-exists-with-different-credential') {
           // handle the error here
         } else if (e.code == 'invalid-credential') {
@@ -98,7 +93,7 @@ class GetXLoginPresenter extends GetxController implements ILoginPresenter {
         }
       } catch (e) {
         e;
-      }finally{
+      } finally {
         _loading.value = false;
       }
     }

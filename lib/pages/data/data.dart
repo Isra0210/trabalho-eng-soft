@@ -16,7 +16,7 @@ class Data {
         },
         {
           "img": "lib/assets/chocolate.jpg",
-          "name": "Chocolate lacta",
+          "name": "Lacta",
           "price": "8.00",
           "count": 1.obs,
         },

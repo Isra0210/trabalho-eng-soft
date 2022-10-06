@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:hackday/admin/model/report_view_model.dart';
 import 'package:hackday/pages/data/data.dart';
 import 'package:hackday/view_model/banknotes_view_model.dart';
 import 'package:hackday/view_model/product_view_model.dart';
@@ -38,11 +41,44 @@ class GetXLevelsPresenter extends GetxController implements ILevelsPresenter {
   set bacnknotesSelected(List<BankNotesViewModel> value) =>
       _bacnknotesSelected.value = value;
 
-  final RxList<BankNotesViewModel> _cashChange =
-      RxList<BankNotesViewModel>([]);
+  final RxList<BankNotesViewModel> _cashChange = RxList<BankNotesViewModel>([]);
   @override
   List<BankNotesViewModel> get cashChange => _cashChange;
   @override
-  set cashChange(List<BankNotesViewModel> value) =>
-      _cashChange.value = value;
+  set cashChange(List<BankNotesViewModel> value) => _cashChange.value = value;
+
+  @override
+  Future<void> uploadFlow(
+    String total,
+    String totalSelected,
+    String cashChange,
+  ) async {
+    final CollectionReference ref =
+        FirebaseFirestore.instance.collection('reports');
+
+    final String docId = ref.doc().id;
+
+    ref.doc(docId).set({
+      "total": total,
+      "total_selected": totalSelected,
+      "cash_change": cashChange,
+      "name": FirebaseAuth.instance.currentUser!.displayName,
+    }, SetOptions(merge: true));
+  }
+
+  @override
+  Stream<List<ReportViewModel>> getReports() {
+    final ref = FirebaseFirestore.instance
+        .collection('reports')
+        .withConverter<ReportViewModel>(
+          fromFirestore: (snapshot, _) =>
+              ReportViewModel.fromMap(snapshot.data()!),
+          toFirestore: (report, _) => report.toMap(),
+        )
+        .snapshots();
+    final result = ref.map<List<ReportViewModel>>((qShot) {
+      return qShot.docs.map((doc) => doc.data()).toList();
+    });
+    return result;
+  }
 }

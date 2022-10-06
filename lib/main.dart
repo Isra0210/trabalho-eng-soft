@@ -4,10 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hackday/pages/finish/successfully_page.dart';
 import 'package:hackday/pages/finish/unsuccessful_page.dart';
+import 'package:hackday/pages/levels/levels_presenter.dart';
 import 'package:hackday/pages/levels/second_level/second_level_page.dart';
 import 'package:hackday/pages/login/login_page.dart';
-import 'package:hackday/presenters/login/login_binding.dart';
+import 'package:hackday/pages/login/login_presenter.dart';
+import 'package:hackday/presenters/levels/getx_levels_presenter.dart';
+import 'package:hackday/presenters/login/getx_login_presenter.dart';
+import 'package:hackday/utils/verify_user_page.dart';
 
+import 'admin/home/home_page.dart';
 import 'pages/levels/first_level/first_level_page.dart';
 import 'pages/levels/third_level/third_level.dart';
 import 'presenters/levels/levels_binding.dart';
@@ -28,13 +33,18 @@ class MyApp extends StatelessWidget {
           if (user == null) {
             Get.offAllNamed(LoginPage.route);
           } else {
-            if (Get.rawRoute!.settings.name != FirstLevelPage.route) {
-              Get.offAllNamed(FirstLevelPage.route);
+            if (Get.rawRoute?.settings.name != VerifyUserPage.route) {
+              Get.offAllNamed(VerifyUserPage.route);
             }
           }
         },
       );
     }
+
+    final ILevelsPresenter levelsPresenter =
+        Get.put<ILevelsPresenter>(GetXLevelsPresenter());
+    final ILoginPresenter loginPresenter =
+        Get.put<ILoginPresenter>(GetXLoginPresenter());
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
@@ -42,18 +52,17 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: LoginPage.route,
+      initialRoute: FirstLevelPage.route,
       onInit: () {
         handleUser(FirebaseAuth.instance.authStateChanges());
-      }, 
+      },
       onReady: () {
         handleUser(FirebaseAuth.instance.authStateChanges());
       },
       getPages: [
         GetPage(
-          binding: LoginBinding(),
           name: LoginPage.route,
-          page: () => const LoginPage(),
+          page: () => LoginPage(presenter: loginPresenter),
         ),
         GetPage(
           binding: LevelsBinding(),
@@ -63,12 +72,12 @@ class MyApp extends StatelessWidget {
         GetPage(
           binding: LevelsBinding(),
           name: SecondLevelPage.route,
-          page: () => const SecondLevelPage(),
+          page: () => SecondLevelPage(levelsPresenter: levelsPresenter),
         ),
         GetPage(
           binding: LevelsBinding(),
           name: ThirdLevelPage.route,
-          page: () => const ThirdLevelPage(),
+          page: () => ThirdLevelPage(presenter: levelsPresenter),
         ),
         GetPage(
           binding: LevelsBinding(),
@@ -79,6 +88,19 @@ class MyApp extends StatelessWidget {
           binding: LevelsBinding(),
           name: UnsuccessfullyPage.route,
           page: () => const UnsuccessfullyPage(),
+        ),
+        GetPage(
+          binding: LevelsBinding(),
+          name: HomePage.route,
+          page: () => HomePage(presenter: levelsPresenter),
+        ),
+        GetPage(
+          binding: LevelsBinding(),
+          name: VerifyUserPage.route,
+          page: () => VerifyUserPage(
+            loginPresenter: loginPresenter,
+            levelsPresenter: levelsPresenter,
+          ),
         ),
       ],
     );

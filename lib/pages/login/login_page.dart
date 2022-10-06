@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hackday/pages/components/background_image_component.dart';
 import 'package:hackday/pages/login/login_presenter.dart';
+import 'package:hackday/utils/verify_user_page.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({required this.presenter, Key? key}) : super(key: key);
 
   static const route = '/login';
+
+  final ILoginPresenter presenter;
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -16,7 +19,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    final ILoginPresenter presenter = Get.find<ILoginPresenter>();
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
@@ -29,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 Obx(
                   () {
-                    return presenter.loading
+                    return widget.presenter.loading
                         ? const Center(
                             child: CircularProgressIndicator(
                               valueColor: AlwaysStoppedAnimation(
@@ -50,9 +52,9 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               onPressed: () async {
                                 if (FirebaseAuth.instance.currentUser != null) {
-                                  () => Get.offNamed('/first-level');
+                                  () => Get.offNamed(VerifyUserPage.route);
                                 } else {
-                                  await presenter.signInWithGoogle();
+                                  await widget.presenter.signInWithGoogle();
                                 }
                               },
                               child: const Text(

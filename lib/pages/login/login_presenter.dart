@@ -8,4 +8,6 @@ abstract class ILoginPresenter {
   set user(UserCredential? value);
 
   Future<UserCredential?> signInWithGoogle();
+
+  Future<Map<String, dynamic>?>? verifyUserProfile();
 }
