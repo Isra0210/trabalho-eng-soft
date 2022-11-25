@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hackday/pages/levels/components/product_component.dart';
@@ -33,7 +34,7 @@ class _FirstLevelPageState extends State<FirstLevelPage> {
         actions: [
           IconButton(
             icon: Icon(Icons.logout, color: Colors.blueGrey.shade900),
-            onPressed: () {},
+            onPressed: () => FirebaseAuth.instance.signOut(),
           ),
         ],
         centerTitle: true,

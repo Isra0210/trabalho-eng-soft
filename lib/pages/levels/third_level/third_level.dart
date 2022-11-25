@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hackday/pages/finish/feedback_page.dart';
@@ -48,8 +49,9 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
         ),
         actions: [
           IconButton(
-              icon: Icon(Icons.logout, color: Colors.blueGrey.shade900),
-              onPressed: () {}),
+            icon: Icon(Icons.logout, color: Colors.blueGrey.shade900),
+            onPressed: () => FirebaseAuth.instance.signOut(),
+          ),
         ],
         centerTitle: true,
         backgroundColor: const Color.fromRGBO(57, 210, 192, 1),
@@ -71,15 +73,15 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
                         style: TextStyle(fontSize: 18, color: Colors.white),
                       ),
                       Obx(() {
-                        double total = 0;
+                        double amoutValueAllProductSelected = 0;
                         //ignore: avoid_function_literals_in_foreach_calls
                         widget.presenter.productsSelected.forEach((product) {
-                          total = total +
+                          amoutValueAllProductSelected = amoutValueAllProductSelected +
                               (double.parse(product.price) *
                                   product.count.value);
                         });
                         return Text(
-                          "R\$ $total",
+                          "R\$ $amoutValueAllProductSelected",
                           style: const TextStyle(
                               fontSize: 18, color: Colors.white),
                         );
@@ -130,18 +132,17 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
                         style: TextStyle(fontSize: 18, color: Colors.white),
                       ),
                       Obx(() {
-                        double total = 0;
+                        double totalCashChanges = 0;
                         //ignore: avoid_function_literals_in_foreach_calls
                         widget.presenter.cashChange.forEach(
                           (product) {
-                            total = total +
+                            totalCashChanges = totalCashChanges +
                                 (double.parse(product.value) *
                                     product.count.value);
                           },
                         );
-                        //TODO cash change
                         return Text(
-                          "R\$ $total",
+                          "R\$ $totalCashChanges",
                           style: const TextStyle(
                             fontSize: 18,
                             color: Colors.white,
@@ -264,7 +265,8 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
                                                 widget.presenter
                                                     .cashChange[index].count;
                                                 return Container(
-                                                  padding: const EdgeInsets.all(6),
+                                                  padding:
+                                                      const EdgeInsets.all(6),
                                                   decoration:
                                                       const BoxDecoration(
                                                     color: Colors.red,
@@ -300,7 +302,8 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
                                                 );
                                               }),
                                               Container(
-                                                padding: const EdgeInsets.all(6),
+                                                padding:
+                                                    const EdgeInsets.all(6),
                                                 decoration: const BoxDecoration(
                                                   color: Colors.green,
                                                   shape: BoxShape.circle,
@@ -317,8 +320,6 @@ class _ThirdLevelPageState extends State<ThirdLevelPage> {
                                                             .count++;
                                                       });
                                                     },
-
-                                                    ///TODO here
                                                     child: const Icon(
                                                       Icons.add,
                                                       color: Colors.white,

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hackday/pages/levels/first_level/first_level_page.dart';
@@ -54,7 +55,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Feedback',
+          'FEEDBACK',
           style: TextStyle(
             color: Colors.blueGrey.shade900,
             fontWeight: FontWeight.bold,
@@ -74,7 +75,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
               Icons.logout,
               color: Colors.blueGrey.shade900,
             ),
-            onPressed: () {},
+            onPressed: () => FirebaseAuth.instance.signOut(),
           ),
         ],
         centerTitle: true,
@@ -93,7 +94,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
               child: const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                  "Produtos",
+                  "PRODUTOS",
                   style: TextStyle(fontSize: 22, color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
@@ -142,7 +143,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
               child: const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                  "Valores",
+                  "VALORES",
                   style: TextStyle(fontSize: 22, color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
@@ -157,7 +158,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text(
-                        "Valor total: ",
+                        "TOTAL",
                         style: TextStyle(fontSize: 22, color: Colors.white),
                       ),
                       Text(
@@ -177,7 +178,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text(
-                        "Valor selecionado: ",
+                        "PAGAMENTO",
                         style: TextStyle(fontSize: 22, color: Colors.white),
                       ),
                       Text(
@@ -198,7 +199,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text(
-                        "Valor do troco selecionado: ",
+                        "TROCO",
                         style: TextStyle(fontSize: 22, color: Colors.white),
                       ),
 
@@ -220,7 +221,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
               child: const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                  "Resultado",
+                  "RESULTADO",
                   style: TextStyle(fontSize: 22, color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
@@ -233,7 +234,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Pagamento: ",
+                    "PAGAMENTO: ",
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.blueGrey.shade900,
@@ -245,7 +246,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     (resOnPay) => Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: Text(
-                        resOnPay,
+                        resOnPay.toUpperCase(),
                         style: TextStyle(
                           fontSize: 18,
                           color: Colors.blueGrey.shade900,
@@ -265,7 +266,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Troco: ",
+                    "TROCO: ",
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.blueGrey.shade900,
@@ -277,7 +278,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     (resOnCash) => Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 6),
                       child: Text(
-                        resOnCash,
+                        resOnCash.toUpperCase(),
                         style: TextStyle(
                           fontSize: 18,
                           color: Colors.blueGrey.shade900,
@@ -334,7 +335,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
               : Colors.red,
           height: 40,
           child: const Text(
-            'Reiniciar',
+            'REINICIAR',
             style: TextStyle(fontSize: 22, color: Colors.white),
           ),
         ),

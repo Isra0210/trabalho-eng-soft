@@ -50,8 +50,6 @@ class GetXLoginPresenter extends GetxController implements ILoginPresenter {
         'email': googleSign?.email,
         'name': googleSign?.displayName,
         'uid': FirebaseAuth.instance.currentUser!.uid,
-        'lastUpdate': FieldValue.serverTimestamp(),
-        'isAdmin': false,
       },
       SetOptions(merge: true),
     );
@@ -80,8 +78,8 @@ class GetXLoginPresenter extends GetxController implements ILoginPresenter {
         _loading.value = true;
         final UserCredential userCredential =
             await auth.signInWithCredential(credential);
-
-        user = userCredential;
+        
+        user = userCredential; 
         await updateSocialUser(googleSignInAccount);
         () => Get.offAllNamed(FirstLevelPage.route);
       } on FirebaseAuthException catch (e) {

@@ -40,12 +40,11 @@ class VerifyUserPage extends StatelessWidget {
             }
 
             if (snapshot.hasData) {
-              final user = snapshot.data!;
+              final bool isAdm = snapshot.data?['isAdmin'] ?? false;
 
-              if (user['isAdmin']) {
-                return HomePage(
-                  presenter: levelsPresenter,
-                );
+              if (isAdm) {
+                return HomePage(presenter: levelsPresenter
+								);
               } else {
                 return const FirstLevelPage();
               }

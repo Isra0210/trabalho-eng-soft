@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hackday/admin/home/components/report_component.dart';
 import 'package:hackday/admin/model/report_view_model.dart';
@@ -25,7 +26,7 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.logout, color: Colors.blueGrey.shade900),
-          onPressed: () {},
+          onPressed: () => FirebaseAuth.instance.signOut(),
         ),
       ),
       body: StreamBuilder<List<ReportViewModel>>(
